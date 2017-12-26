@@ -44,7 +44,7 @@
 }(function ($, tmpl) {
     'use strict';
 
-    $.blueimp.fileupload.prototype._specialOptions.push(
+    $.blueimp.yafFileUpload.prototype._specialOptions.push(
         'filesContainer',
         'uploadTemplateId',
         'downloadTemplateId'
@@ -52,7 +52,7 @@
 
     // The UI version extends the file upload widget
     // and adds complete user interface interaction:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             // By default, files added to the widget are uploaded as soon
@@ -101,8 +101,7 @@
                     return false;
                 }
                 var $this = $(this),
-                    that = $this.data('blueimp-fileupload') ||
-                        $this.data('fileupload'),
+                    that = $this.data('blueimp-yafFileUpload') ,
                     options = that.options;
                 data.context = that._renderUpload(data.files)
                     .data('data', data)
@@ -113,7 +112,7 @@
                 that._forceReflow(data.context);
                 that._transition(data.context);
                 data.process(function () {
-                    return $this.fileupload('process', data);
+                    return $this.yafFileUpload('process', data);
                 }).always(function () {
                     data.context.each(function (index) {
                         $(this).find('.size').text(
@@ -144,7 +143,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload');
                 if (data.context && data.dataType &&
                         data.dataType.substr(0, 6) === 'iframe') {
@@ -168,7 +167,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload'),
                     getFilesFromResponse = data.getFilesFromResponse ||
                         that.options.getFilesFromResponse,
@@ -218,7 +217,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload'),
                     template,
                     deferred;
@@ -307,7 +306,7 @@
                         .find('.progress-extended');
                 if (extendedProgressNode.length) {
                     extendedProgressNode.html(
-                        ($this.data('blueimp-fileupload') || $this.data('fileupload'))
+                        ($this.data('blueimp-yafFileUpload') || $this.data('fileupload'))
                             ._renderExtendedProgress(data)
                     );
                 }
@@ -324,7 +323,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload');
                 that._resetFinishedDeferreds();
                 that._transition($(this).find('.fileupload-progress')).done(
@@ -338,7 +337,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload'),
                     deferred = that._addFinishedDeferreds();
                 $.when.apply($, that._getFinishedDeferreds())
@@ -372,7 +371,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload'),
                     removeNode = function () {
                         that._transition(data.context).done(

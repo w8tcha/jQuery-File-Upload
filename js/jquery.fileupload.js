@@ -84,7 +84,7 @@
     // By default, files added via file input selection, paste, drag & drop or
     // "add" method are uploaded immediately, but it is possible to override
     // the "add" callback option to queue file uploads.
-    $.widget('blueimp.fileupload', {
+    $.widget('blueimp.yafFileUpload', {
 
         options: {
             // The drop target element(s), by the default the complete document.
@@ -213,7 +213,7 @@
                     return false;
                 }
                 if (data.autoUpload || (data.autoUpload !== false &&
-                        $(this).fileupload('option', 'autoUpload'))) {
+                    $(this).yafFileUpload('option', 'autoUpload'))) {
                     data.process().done(function () {
                         data.submit();
                     });
@@ -453,7 +453,7 @@
             }
             if (!multipart || options.blob || !this._isInstanceOf('File', file)) {
                 options.headers['Content-Disposition'] = 'attachment; filename="' +
-                    encodeURI(file.uploadName || file.name) + '"';
+                    encodeURI(file.name) + '"';
             }
             if (!multipart) {
                 options.contentType = file.type || 'application/octet-stream';
@@ -489,11 +489,7 @@
                         });
                     }
                     if (options.blob) {
-                        formData.append(
-                            paramName,
-                            options.blob,
-                            file.uploadName || file.name
-                        );
+                        formData.append(paramName, options.blob, file.name);
                     } else {
                         $.each(options.files, function (index, file) {
                             // This check allows the tests to run with

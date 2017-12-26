@@ -47,7 +47,7 @@
     'use strict';
 
     // Prepend to the default processQueue:
-    $.blueimp.fileupload.prototype.options.processQueue.unshift(
+    $.blueimp.yafFileUpload.prototype.options.processQueue.unshift(
         {
             action: 'loadImageMetaData',
             disableImageHead: '@',
@@ -116,7 +116,7 @@
 
     // The File Upload Resize plugin extends the fileupload widget
     // with image resize functionality:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             // The regular expression for the types of images to load:
