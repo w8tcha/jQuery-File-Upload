@@ -11,50 +11,7 @@
 
 /* global define, require */
 
-<<<<<<< HEAD
-;(function (factory) {
-    'use strict';
-    if (typeof define === 'function' && define.amd) {
-        // Register as an anonymous AMD module:
-        define([
-            'jquery',
-            'load-image',
-            './jquery.fileupload-process'
-        ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('blueimp-load-image/js/load-image'),
-            require('./jquery.fileupload-process')
-        );
-    } else {
-        // Browser globals:
-        factory(
-            window.jQuery,
-            window.loadImage
-        );
-    }
-}(function ($, loadImage) {
-    'use strict';
-
-    // Prepend to the default processQueue:
-    $.blueimp.yafFileUpload.prototype.options.processQueue.unshift(
-        {
-            action: 'loadAudio',
-            // Use the action as prefix for the "@" options:
-            prefix: true,
-            fileTypes: '@',
-            maxFileSize: '@',
-            disabled: '@disableAudioPreview'
-        },
-        {
-            action: 'setAudio',
-            name: '@audioPreviewName',
-            disabled: '@disableAudioPreview'
-        }
-=======
-(function(factory) {
+(function (factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
@@ -71,24 +28,9 @@
     // Browser globals:
     factory(window.jQuery, window.loadImage);
   }
-})(function($, loadImage) {
+})(function ($, loadImage) {
   'use strict';
 
-<<<<<<< HEAD
-    // The File Upload Audio Preview plugin extends the fileupload widget
-    // with audio preview functionality:
-    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
-
-        options: {
-            // The regular expression for the types of audio files to load,
-            // matched against the file type:
-            loadAudioFileTypes: /^audio\/.*$/
-        },
-
-        _audioElement: document.createElement('audio'),
-
-        processActions: {
-=======
   // Prepend to the default processQueue:
   $.blueimp.fileupload.prototype.options.processQueue.unshift(
     {
@@ -105,7 +47,6 @@
       disabled: '@disableAudioPreview'
     }
   );
->>>>>>> upstream/master
 
   // The File Upload Audio Preview plugin extends the fileupload widget
   // with audio preview functionality:
@@ -123,7 +64,7 @@
       // as audio element if the browser supports playing it.
       // Accepts the options fileTypes (regular expression)
       // and maxFileSize (integer) to limit the files to load:
-      loadAudio: function(data, options) {
+      loadAudio: function (data, options) {
         if (options.disabled) {
           return data;
         }
@@ -150,7 +91,7 @@
       },
 
       // Sets the audio element as a property of the file object:
-      setAudio: function(data, options) {
+      setAudio: function (data, options) {
         if (data.audio && !options.disabled) {
           data.files[data.index][options.name || 'preview'] = data.audio;
         }

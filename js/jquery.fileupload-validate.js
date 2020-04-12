@@ -11,51 +11,7 @@
 
 /* global define, require */
 
-<<<<<<< HEAD
-;(function (factory) {
-    'use strict';
-    if (typeof define === 'function' && define.amd) {
-        // Register as an anonymous AMD module:
-        define([
-            'jquery',
-            './jquery.fileupload-process'
-        ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('./jquery.fileupload-process')
-        );
-    } else {
-        // Browser globals:
-        factory(
-            window.jQuery
-        );
-    }
-}(function ($) {
-    'use strict';
-
-    // Append to the default processQueue:
-    $.blueimp.yafFileUpload.prototype.options.processQueue.push(
-        {
-            action: 'validate',
-            // Always trigger this action,
-            // even if the previous action was rejected:
-            always: true,
-            // Options taken from the global options map:
-            acceptFileTypes: '@',
-            maxFileSize: '@',
-            minFileSize: '@',
-            maxNumberOfFiles: '@',
-            disabled: '@disableValidation'
-        }
-    );
-
-    // The File Upload Validation plugin extends the fileupload widget
-    // with file validation functionality:
-    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
-=======
-(function(factory) {
+(function (factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
@@ -67,7 +23,7 @@
     // Browser globals:
     factory(window.jQuery);
   }
-})(function($) {
+})(function ($) {
   'use strict';
 
   // Append to the default processQueue:
@@ -83,7 +39,6 @@
     maxNumberOfFiles: '@',
     disabled: '@disableValidation'
   });
->>>>>>> upstream/master
 
   // The File Upload Validation plugin extends the fileupload widget
   // with file validation functionality:
@@ -115,7 +70,7 @@
     },
 
     processActions: {
-      validate: function(data, options) {
+      validate: function (data, options) {
         if (options.disabled) {
           return data;
         }

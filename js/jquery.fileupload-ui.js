@@ -487,7 +487,7 @@
 =======
 /* global define, require */
 
-(function(factory) {
+(function (factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
@@ -513,7 +513,7 @@
     // Browser globals:
     factory(window.jQuery, window.tmpl);
   }
-})(function($, tmpl) {
+})(function ($, tmpl) {
   'use strict';
 
   $.blueimp.fileupload.prototype._specialOptions.push(
@@ -553,12 +553,12 @@
 
       // Function returning the current number of files,
       // used by the maxNumberOfFiles validation:
-      getNumberOfFiles: function() {
+      getNumberOfFiles: function () {
         return this.filesContainer.children().not('.processing').length;
       },
 
       // Callback to retrieve the list of files from the server response:
-      getFilesFromResponse: function(data) {
+      getFilesFromResponse: function (data) {
         if (data.result && $.isArray(data.result.files)) {
           return data.result.files;
         }
@@ -568,7 +568,7 @@
       // The add callback is invoked as soon as files are added to the fileupload
       // widget (via file input selection, drag & drop or add API call).
       // See the basic file upload widget for more information:
-      add: function(e, data) {
+      add: function (e, data) {
         if (e.isDefaultPrevented()) {
           return false;
         }
@@ -585,12 +585,12 @@
         that._forceReflow(data.context);
         that._transition(data.context);
         data
-          .process(function() {
+          .process(function () {
             return $this.fileupload('process', data);
           })
-          .always(function() {
+          .always(function () {
             data.context
-              .each(function(index) {
+              .each(function (index) {
                 $(this)
                   .find('.size')
                   .text(that._formatFileSize(data.files[index].size));
@@ -598,7 +598,7 @@
               .removeClass('processing');
             that._renderPreviews(data);
           })
-          .done(function() {
+          .done(function () {
             data.context.find('.edit,.start').prop('disabled', false);
             if (
               that._trigger('added', e, data) !== false &&
@@ -609,21 +609,19 @@
 >>>>>>> upstream/master
             }
           })
-          .fail(function() {
+          .fail(function () {
             if (data.files.error) {
-              data.context.each(function(index) {
+              data.context.each(function (index) {
                 var error = data.files[index].error;
                 if (error) {
-                  $(this)
-                    .find('.error')
-                    .text(error);
+                  $(this).find('.error').text(error);
                 }
               });
             }
           });
       },
       // Callback for the start of each file upload request:
-      send: function(e, data) {
+      send: function (e, data) {
         if (e.isDefaultPrevented()) {
           return false;
         }
@@ -648,7 +646,7 @@
         return that._trigger('sent', e, data);
       },
       // Callback for successful uploads:
-      done: function(e, data) {
+      done: function (e, data) {
         if (e.isDefaultPrevented()) {
           return false;
         }
@@ -660,14 +658,14 @@
           template,
           deferred;
         if (data.context) {
-          data.context.each(function(index) {
+          data.context.each(function (index) {
             var file = files[index] || { error: 'Empty file upload result' };
             deferred = that._addFinishedDeferreds();
-            that._transition($(this)).done(function() {
+            that._transition($(this)).done(function () {
               var node = $(this);
               template = that._renderDownload([file]).replaceAll(node);
               that._forceReflow(template);
-              that._transition(template).done(function() {
+              that._transition(template).done(function () {
                 data.context = $(this);
                 that._trigger('completed', e, data);
                 that._trigger('finished', e, data);
@@ -683,7 +681,7 @@
             );
           that._forceReflow(template);
           deferred = that._addFinishedDeferreds();
-          that._transition(template).done(function() {
+          that._transition(template).done(function () {
             data.context = $(this);
             that._trigger('completed', e, data);
             that._trigger('finished', e, data);
@@ -692,7 +690,7 @@
         }
       },
       // Callback for failed (abort or error) uploads:
-      fail: function(e, data) {
+      fail: function (e, data) {
         if (e.isDefaultPrevented()) {
           return false;
         }
@@ -701,17 +699,17 @@
           template,
           deferred;
         if (data.context) {
-          data.context.each(function(index) {
+          data.context.each(function (index) {
             if (data.errorThrown !== 'abort') {
               var file = data.files[index];
               file.error =
                 file.error || data.errorThrown || data.i18n('unknownError');
               deferred = that._addFinishedDeferreds();
-              that._transition($(this)).done(function() {
+              that._transition($(this)).done(function () {
                 var node = $(this);
                 template = that._renderDownload([file]).replaceAll(node);
                 that._forceReflow(template);
-                that._transition(template).done(function() {
+                that._transition(template).done(function () {
                   data.context = $(this);
                   that._trigger('failed', e, data);
                   that._trigger('finished', e, data);
@@ -720,7 +718,7 @@
               });
             } else {
               deferred = that._addFinishedDeferreds();
-              that._transition($(this)).done(function() {
+              that._transition($(this)).done(function () {
                 $(this).remove();
                 that._trigger('failed', e, data);
                 that._trigger('finished', e, data);
@@ -737,7 +735,7 @@
             .data('data', data);
           that._forceReflow(data.context);
           deferred = that._addFinishedDeferreds();
-          that._transition(data.context).done(function() {
+          that._transition(data.context).done(function () {
             data.context = $(this);
             that._trigger('failed', e, data);
             that._trigger('finished', e, data);
@@ -750,13 +748,13 @@
         }
       },
       // Callback for upload progress events:
-      progress: function(e, data) {
+      progress: function (e, data) {
         if (e.isDefaultPrevented()) {
           return false;
         }
         var progress = Math.floor((data.loaded / data.total) * 100);
         if (data.context) {
-          data.context.each(function() {
+          data.context.each(function () {
             $(this)
               .find('.progress')
               .attr('aria-valuenow', progress)
@@ -767,7 +765,7 @@
         }
       },
       // Callback for global upload progress events:
-      progressall: function(e, data) {
+      progressall: function (e, data) {
         if (e.isDefaultPrevented()) {
           return false;
         }
@@ -790,62 +788,64 @@
           .css('width', progress + '%');
       },
       // Callback for uploads start, equivalent to the global ajaxStart event:
-      start: function(e) {
+      start: function (e) {
         if (e.isDefaultPrevented()) {
           return false;
         }
         var that =
           $(this).data('blueimp-fileupload') || $(this).data('fileupload');
         that._resetFinishedDeferreds();
-        that._transition($(this).find('.fileupload-progress')).done(function() {
-          that._trigger('started', e);
-        });
+        that
+          ._transition($(this).find('.fileupload-progress'))
+          .done(function () {
+            that._trigger('started', e);
+          });
       },
       // Callback for uploads stop, equivalent to the global ajaxStop event:
-      stop: function(e) {
+      stop: function (e) {
         if (e.isDefaultPrevented()) {
           return false;
         }
         var that =
             $(this).data('blueimp-fileupload') || $(this).data('fileupload'),
           deferred = that._addFinishedDeferreds();
-        $.when.apply($, that._getFinishedDeferreds()).done(function() {
+        $.when.apply($, that._getFinishedDeferreds()).done(function () {
           that._trigger('stopped', e);
         });
-        that._transition($(this).find('.fileupload-progress')).done(function() {
-          $(this)
-            .find('.progress')
-            .attr('aria-valuenow', '0')
-            .children()
-            .first()
-            .css('width', '0%');
-          $(this)
-            .find('.progress-extended')
-            .html('&nbsp;');
-          deferred.resolve();
-        });
+        that
+          ._transition($(this).find('.fileupload-progress'))
+          .done(function () {
+            $(this)
+              .find('.progress')
+              .attr('aria-valuenow', '0')
+              .children()
+              .first()
+              .css('width', '0%');
+            $(this).find('.progress-extended').html('&nbsp;');
+            deferred.resolve();
+          });
       },
-      processstart: function(e) {
+      processstart: function (e) {
         if (e.isDefaultPrevented()) {
           return false;
         }
         $(this).addClass('fileupload-processing');
       },
-      processstop: function(e) {
+      processstop: function (e) {
         if (e.isDefaultPrevented()) {
           return false;
         }
         $(this).removeClass('fileupload-processing');
       },
       // Callback for file deletion:
-      destroy: function(e, data) {
+      destroy: function (e, data) {
         if (e.isDefaultPrevented()) {
           return false;
         }
         var that =
             $(this).data('blueimp-fileupload') || $(this).data('fileupload'),
-          removeNode = function() {
-            that._transition(data.context).done(function() {
+          removeNode = function () {
+            that._transition(data.context).done(function () {
               $(this).remove();
               that._trigger('destroyed', e, data);
             });
@@ -854,7 +854,7 @@
           data.dataType = data.dataType || that.options.dataType;
           $.ajax(data)
             .done(removeNode)
-            .fail(function() {
+            .fail(function () {
               that._trigger('destroyfailed', e, data);
             });
         } else {
@@ -863,29 +863,29 @@
       }
     },
 
-    _resetFinishedDeferreds: function() {
+    _resetFinishedDeferreds: function () {
       this._finishedUploads = [];
     },
 
-    _addFinishedDeferreds: function(deferred) {
+    _addFinishedDeferreds: function (deferred) {
       // eslint-disable-next-line new-cap
       var promise = deferred || $.Deferred();
       this._finishedUploads.push(promise);
       return promise;
     },
 
-    _getFinishedDeferreds: function() {
+    _getFinishedDeferreds: function () {
       return this._finishedUploads;
     },
 
     // Link handler, that allows to download files
     // by drag & drop of the links to the desktop:
-    _enableDragToDesktop: function() {
+    _enableDragToDesktop: function () {
       var link = $(this),
         url = link.prop('href'),
         name = link.prop('download'),
         type = 'application/octet-stream';
-      link.bind('dragstart', function(e) {
+      link.on('dragstart', function (e) {
         try {
           e.originalEvent.dataTransfer.setData(
             'DownloadURL',
@@ -897,7 +897,7 @@
       });
     },
 
-    _formatFileSize: function(bytes) {
+    _formatFileSize: function (bytes) {
       if (typeof bytes !== 'number') {
         return '';
       }
@@ -910,7 +910,7 @@
       return (bytes / 1000).toFixed(2) + ' KB';
     },
 
-    _formatBitrate: function(bits) {
+    _formatBitrate: function (bits) {
       if (typeof bits !== 'number') {
         return '';
       }
@@ -926,7 +926,7 @@
       return bits.toFixed(2) + ' bit/s';
     },
 
-    _formatTime: function(seconds) {
+    _formatTime: function (seconds) {
       var date = new Date(seconds * 1000),
         days = Math.floor(seconds / 86400);
       days = days ? days + 'd ' : '';
@@ -940,11 +940,11 @@
       );
     },
 
-    _formatPercentage: function(floatValue) {
+    _formatPercentage: function (floatValue) {
       return (floatValue * 100).toFixed(2) + ' %';
     },
 
-    _renderExtendedProgress: function(data) {
+    _renderExtendedProgress: function (data) {
       return (
         this._formatBitrate(data.bitrate) +
         ' | ' +
@@ -958,7 +958,7 @@
       );
     },
 
-    _renderTemplate: function(func, files) {
+    _renderTemplate: function (func, files) {
       if (!func) {
         return $();
       }
@@ -970,31 +970,27 @@
       if (result instanceof $) {
         return result;
       }
-      return $(this.options.templatesContainer)
-        .html(result)
-        .children();
+      return $(this.options.templatesContainer).html(result).children();
     },
 
-    _renderPreviews: function(data) {
-      data.context.find('.preview').each(function(index, elm) {
-        $(elm)
-          .empty()
-          .append(data.files[index].preview);
+    _renderPreviews: function (data) {
+      data.context.find('.preview').each(function (index, elm) {
+        $(elm).empty().append(data.files[index].preview);
       });
     },
 
-    _renderUpload: function(files) {
+    _renderUpload: function (files) {
       return this._renderTemplate(this.options.uploadTemplate, files);
     },
 
-    _renderDownload: function(files) {
+    _renderDownload: function (files) {
       return this._renderTemplate(this.options.downloadTemplate, files)
         .find('a[download]')
         .each(this._enableDragToDesktop)
         .end();
     },
 
-    _editHandler: function(e) {
+    _editHandler: function (e) {
       e.preventDefault();
       if (!this.options.edit) return;
       var that = this,
@@ -1002,24 +998,24 @@
         template = button.closest('.template-upload'),
         data = template.data('data'),
         index = button.data().index;
-      this.options.edit(data.files[index]).then(function(file) {
+      this.options.edit(data.files[index]).then(function (file) {
         if (!file) return;
         data.files[index] = file;
         data.context.addClass('processing');
         template.find('.edit,.start').prop('disabled', true);
         $(that.element)
           .fileupload('process', data)
-          .always(function() {
+          .always(function () {
             template
               .find('.size')
               .text(that._formatFileSize(data.files[index].size));
             data.context.removeClass('processing');
             that._renderPreviews(data);
           })
-          .done(function() {
+          .done(function () {
             template.find('.edit,.start').prop('disabled', false);
           })
-          .fail(function() {
+          .fail(function () {
             template.find('.edit').prop('disabled', false);
             var error = data.files[index].error;
             if (error) {
@@ -1029,7 +1025,7 @@
       });
     },
 
-    _startHandler: function(e) {
+    _startHandler: function (e) {
       e.preventDefault();
       var button = $(e.currentTarget),
         template = button.closest('.template-upload'),
@@ -1040,7 +1036,7 @@
       }
     },
 
-    _cancelHandler: function(e) {
+    _cancelHandler: function (e) {
       e.preventDefault();
       var template = $(e.currentTarget).closest(
           '.template-upload,.template-download'
@@ -1055,7 +1051,7 @@
       }
     },
 
-    _deleteHandler: function(e) {
+    _deleteHandler: function (e) {
       e.preventDefault();
       var button = $(e.currentTarget);
       this._trigger(
@@ -1071,11 +1067,11 @@
       );
     },
 
-    _forceReflow: function(node) {
+    _forceReflow: function (node) {
       return $.support.transition && node.length && node[0].offsetWidth;
     },
 
-    _transition: function(node) {
+    _transition: function (node) {
       // eslint-disable-next-line new-cap
       var dfd = $.Deferred();
       if (
@@ -1083,16 +1079,16 @@
         node.hasClass('fade') &&
         node.is(':visible')
       ) {
-        var transitionEndHandler = function(e) {
+        var transitionEndHandler = function (e) {
           // Make sure we don't respond to other transition events
           // in the container element, e.g. from button elements:
           if (e.target === node[0]) {
-            node.unbind($.support.transition.end, transitionEndHandler);
+            node.off($.support.transition.end, transitionEndHandler);
             dfd.resolveWith(node);
           }
         };
         node
-          .bind($.support.transition.end, transitionEndHandler)
+          .on($.support.transition.end, transitionEndHandler)
           .toggleClass(this.options.showElementClass);
       } else {
         node.toggleClass(this.options.showElementClass);
@@ -1101,23 +1097,23 @@
       return dfd;
     },
 
-    _initButtonBarEventHandlers: function() {
+    _initButtonBarEventHandlers: function () {
       var fileUploadButtonBar = this.element.find('.fileupload-buttonbar'),
         filesList = this.options.filesContainer;
       this._on(fileUploadButtonBar.find('.start'), {
-        click: function(e) {
+        click: function (e) {
           e.preventDefault();
           filesList.find('.start').click();
         }
       });
       this._on(fileUploadButtonBar.find('.cancel'), {
-        click: function(e) {
+        click: function (e) {
           e.preventDefault();
           filesList.find('.cancel').click();
         }
       });
       this._on(fileUploadButtonBar.find('.delete'), {
-        click: function(e) {
+        click: function (e) {
           e.preventDefault();
           filesList
             .find('.toggle:checked')
@@ -1128,7 +1124,7 @@
         }
       });
       this._on(fileUploadButtonBar.find('.toggle'), {
-        change: function(e) {
+        change: function (e) {
           filesList
             .find('.toggle')
             .prop('checked', $(e.currentTarget).is(':checked'));
@@ -1136,7 +1132,7 @@
       });
     },
 
-    _destroyButtonBarEventHandlers: function() {
+    _destroyButtonBarEventHandlers: function () {
       this._off(
         this.element
           .find('.fileupload-buttonbar')
@@ -1146,7 +1142,7 @@
       this._off(this.element.find('.fileupload-buttonbar .toggle'), 'change.');
     },
 
-    _initEventHandlers: function() {
+    _initEventHandlers: function () {
       this._super();
       this._on(this.options.filesContainer, {
         'click .edit': this._editHandler,
@@ -1157,13 +1153,13 @@
       this._initButtonBarEventHandlers();
     },
 
-    _destroyEventHandlers: function() {
+    _destroyEventHandlers: function () {
       this._destroyButtonBarEventHandlers();
       this._off(this.options.filesContainer, 'click');
       this._super();
     },
 
-    _enableFileInputButton: function() {
+    _enableFileInputButton: function () {
       this.element
         .find('.fileinput-button input')
         .prop('disabled', false)
@@ -1171,7 +1167,7 @@
         .removeClass('disabled');
     },
 
-    _disableFileInputButton: function() {
+    _disableFileInputButton: function () {
       this.element
         .find('.fileinput-button input')
         .prop('disabled', true)
@@ -1179,7 +1175,7 @@
         .addClass('disabled');
     },
 
-    _initTemplates: function() {
+    _initTemplates: function () {
       var options = this.options;
       options.templatesContainer = this.document[0].createElement(
         options.filesContainer.prop('nodeName')
@@ -1194,7 +1190,7 @@
       }
     },
 
-    _initFilesContainer: function() {
+    _initFilesContainer: function () {
       var options = this.options;
       if (options.filesContainer === undefined) {
         options.filesContainer = this.element.find('.files');
@@ -1203,13 +1199,13 @@
       }
     },
 
-    _initSpecialOptions: function() {
+    _initSpecialOptions: function () {
       this._super();
       this._initFilesContainer();
       this._initTemplates();
     },
 
-    _create: function() {
+    _create: function () {
       this._super();
       this._resetFinishedDeferreds();
       if (!$.support.fileInput) {
@@ -1217,7 +1213,7 @@
       }
     },
 
-    enable: function() {
+    enable: function () {
       var wasDisabled = false;
       if (this.options.disabled) {
         wasDisabled = true;
@@ -1229,7 +1225,7 @@
       }
     },
 
-    disable: function() {
+    disable: function () {
       if (!this.options.disabled) {
         this.element.find('input, button').prop('disabled', true);
         this._disableFileInputButton();

@@ -11,50 +11,7 @@
 
 /* global define, require */
 
-<<<<<<< HEAD
-;(function (factory) {
-    'use strict';
-    if (typeof define === 'function' && define.amd) {
-        // Register as an anonymous AMD module:
-        define([
-            'jquery',
-            'load-image',
-            './jquery.fileupload-process'
-        ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('blueimp-load-image/js/load-image'),
-            require('./jquery.fileupload-process')
-        );
-    } else {
-        // Browser globals:
-        factory(
-            window.jQuery,
-            window.loadImage
-        );
-    }
-}(function ($, loadImage) {
-    'use strict';
-
-    // Prepend to the default processQueue:
-    $.blueimp.yafFileUpload.prototype.options.processQueue.unshift(
-        {
-            action: 'loadVideo',
-            // Use the action as prefix for the "@" options:
-            prefix: true,
-            fileTypes: '@',
-            maxFileSize: '@',
-            disabled: '@disableVideoPreview'
-        },
-        {
-            action: 'setVideo',
-            name: '@videoPreviewName',
-            disabled: '@disableVideoPreview'
-        }
-=======
-(function(factory) {
+(function (factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
@@ -65,30 +22,14 @@
       require('jquery'),
       require('blueimp-load-image/js/load-image'),
       require('./jquery.fileupload-process')
->>>>>>> upstream/master
     );
   } else {
     // Browser globals:
     factory(window.jQuery, window.loadImage);
   }
-})(function($, loadImage) {
+})(function ($, loadImage) {
   'use strict';
 
-<<<<<<< HEAD
-    // The File Upload Video Preview plugin extends the fileupload widget
-    // with video preview functionality:
-    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
-
-        options: {
-            // The regular expression for the types of video files to load,
-            // matched against the file type:
-            loadVideoFileTypes: /^video\/.*$/
-        },
-
-        _videoElement: document.createElement('video'),
-
-        processActions: {
-=======
   // Prepend to the default processQueue:
   $.blueimp.fileupload.prototype.options.processQueue.unshift(
     {
@@ -105,7 +46,6 @@
       disabled: '@disableVideoPreview'
     }
   );
->>>>>>> upstream/master
 
   // The File Upload Video Preview plugin extends the fileupload widget
   // with video preview functionality:
@@ -123,7 +63,7 @@
       // as video element if the browser supports playing it.
       // Accepts the options fileTypes (regular expression)
       // and maxFileSize (integer) to limit the files to load:
-      loadVideo: function(data, options) {
+      loadVideo: function (data, options) {
         if (options.disabled) {
           return data;
         }
@@ -150,7 +90,7 @@
       },
 
       // Sets the video element as a property of the file object:
-      setVideo: function(data, options) {
+      setVideo: function (data, options) {
         if (data.video && !options.disabled) {
           data.files[data.index][options.name || 'preview'] = data.video;
         }
